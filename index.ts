@@ -1,38 +1,11 @@
-// Room
-//      Properties:
-//           Name - string
-//           Bookings - array of Booking objects
-//           Rate - int price in cents
-//           Discount - int percentage
-//       Methods:
-//           isOccupied(date) returns false if not occupied, returns the booking if occupied
-//           occupancyPercentage(startDate, endDate) returns the percentage of days with occupancy within the range of dates provided (inclusive)
-//
-// Booking
-//       Properties:
-//           Name - string
-//           Email - string
-//           Check in - date
-//           Check out - date
-//           Discount - int percentage
-//           Room - a room object
-//       Methods:
-//           get fee() returns the fee, including discounts on room and guest
-//
-// Functions:
-//      totalOccupancyPercentage(rooms, startDate, endDate)
-//          returns the total occupancy percentage across all rooms in the array
-//      availableRooms(rooms, startDate, endDate)
-//          returns all rooms in the array that are not occupied for the entire duration
-
 interface RoomInterface {
   bookings: Array<BookingInterface>;
   discount: number;
   name: string;
   rate: number;
 }
-function datesArray(dateStart: Date, dateEnd: Date): Date[] {
-  let range: Date[] = [];
+function datesArray(dateStart: Date, dateEnd: Date): Array<Date> {
+  let range: Array<Date> = [];
   const startDate = new Date(dateStart);
   while (startDate < dateEnd) {
     range = [...range, new Date(startDate)];
@@ -99,8 +72,23 @@ class Booking implements BookingInterface {
     this.room = room;
   }
 
- 
+  /* This returns the total price of the room after applying the discounts.*/
+  getFee({discount}):number {
+    const totalDiscount: number = discount + this.room.discount
+    const dateRange: Array<string> = this.room.dateRange(this.checkIn, this.checkOut)
+    const totalPrice: number = dateRange.length * this.room.rate
+    return (totalPrice - ((totalDiscount / 100) * totalPrice));
+  }
 }
+/* This takes an array of rooms, a start date and an end date, and returns the average occupancy percentage of all the rooms in the array. */
+const totalOccupancyPercentage = (rooms:Array<any>, startDate: Date, endDate: Date): number => {
+  const occupancyOfEachRoom = rooms.map((room) => room.occupancyPercentage(startDate, endDate)).reduce((a, b) => a + b, 0);
+  return Math.round(occupancyOfEachRoom / rooms.length);
+};
+/* This filters through the rooms array and returns the names of the rooms that have a booking that overlaps with the given date range.*/
+const availableRooms = (rooms: Array<any>, startDate: Date, endDate: Date) => {
+  const availableRoomArr = rooms.filter((room) => room.bookings.find((booking) => startDate <= booking.checkIn && endDate >= booking.checkOut));
+  return availableRoomArr[0] ? availableRoomArr.map((room) => room.name).join(", ") : "No rooms booked";
+};
 
-
-module.exports = { Room, Booking};
+module.exports = { Room, Booking, totalOccupancyPercentage, availableRooms };
