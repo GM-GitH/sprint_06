@@ -27,13 +27,16 @@ class Room implements RoomInterface {
   }
 
   isOccupied(date: Date): Boolean {
-    for (let booking of this.bookings) {
+    let bool;
+    for (let booking of [this.bookings]) {
       if (date >= booking.checkIn && date < booking.checkOut) {
-        return true;
+        return bool = true;
       }
+      else return bool = false
     }
-    return false;
+    return bool;
   }
+  
   occupancyPercentage(startDate: Date, endDate: Date): number {
     const datesRange = datesArray(startDate, endDate);
     const datesOccupied: Array<Date> = [];
@@ -73,8 +76,8 @@ class Booking implements BookingInterface {
   }
 
   /* This returns the total price of the room after applying the discounts.*/
-  getFee({discount}):number {
-    const totalDiscount: number = discount + this.room.discount
+  getFee():number {
+    const totalDiscount: number = this.discount + this.room.discount
     const dateRange: Array<string> = this.room.dateRange(this.checkIn, this.checkOut)
     const totalPrice: number = dateRange.length * this.room.rate
     return (totalPrice - ((totalDiscount / 100) * totalPrice));
@@ -91,4 +94,4 @@ const availableRooms = (rooms: Array<any>, startDate: Date, endDate: Date) => {
   return availableRoomArr[0] ? availableRoomArr.map((room) => room.name).join(", ") : "No rooms booked";
 };
 
-module.exports = { Room, Booking, totalOccupancyPercentage, availableRooms };
+export { Room, Booking, totalOccupancyPercentage, availableRooms };
