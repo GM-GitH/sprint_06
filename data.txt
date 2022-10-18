@@ -1,0 +1,8 @@
+day	in	out
+Sunday	80	80
+Monday	70	30
+Tuesday	60	25
+Wednesday	30	25
+Thursday	20	30
+Friday	40	35
+Saturday	90	70
