@@ -1,4 +1,11 @@
-export default function appReducer(state, action) {
+type AppReducerProps = {
+  email: string;
+  password: string;
+  auth: boolean;
+  action: string;
+  type: string;
+};
+export default function appReducer(state: AppReducerProps, action: AppReducerProps) {
   switch (action.type) {
     case "USER_LOGIN":
       return { id: 1, name: "William Johanson", email: "email@example.com", auth: true };

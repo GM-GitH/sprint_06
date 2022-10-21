@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import styled from "styled-components";
 import { RoomsTable } from "./styled/RoomsTable";
 
@@ -50,7 +51,7 @@ const Styled = styled.div`
     }
   }
 `;
-export const RoomList = () => {
+export function RoomList(): ReactElement {
   return (
     <>
       <Styled>

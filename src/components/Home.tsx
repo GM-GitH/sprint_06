@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import styled from "styled-components";
 import img from "../assets/icon/img";
 import image from "../assets/img/image";
@@ -153,7 +154,7 @@ const HomeStyle = styled.div`
     padding: 35px;
   }
 `;
-const Home = () => {
+function Home(): ReactElement {
   return (
     <HomeStyle>
       <div className="grid-container">

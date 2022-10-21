@@ -3,7 +3,10 @@ import LeftbarAnimated from "./styled/LeftbarAnimated";
 import StyledRoom from "./styled/StyledRoomInfo";
 // import image from "../assets/img/image";
 
-const RoomInfo = ({ logout }) => {
+type Props = {
+  logout: () => void
+};
+const RoomInfo = ({ logout }: Props) => {
   useEffect(() => {
     document.title = "Dashboard | Room Info";
   }, []);

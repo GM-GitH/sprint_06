@@ -1,6 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Menu from "@mui/material/Menu";
+import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
 import Divider from "@mui/material/Divider";
@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteRoom } from "../features/rooms/roomsSlice";
 
-const StyledMenu = styled((props) => (
+const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
     anchorOrigin={{
@@ -39,10 +39,10 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function CustomizedMenus({id}) {
-  const [anchorEl, setAnchorEl] = useState(null);
+export default function CustomizedMenus({ id }: any) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -51,8 +51,9 @@ export default function CustomizedMenus({id}) {
 
   const dispatch = useDispatch();
 
-  function handleDelete(id) {
-    dispatch(deleteRoom(id))
+  function handleDelete(id: any) {
+    dispatch(deleteRoom(id));
+    handleClose();
   }
 
   return (
@@ -78,21 +79,26 @@ export default function CustomizedMenus({id}) {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} disableRipple>
-          <Link to={`/rooms/edit/${id}`} style={{ textDecoration: "none", color: "inherit"}}>
+          <Link to={`/rooms/edit/${id}`} style={{ textDecoration: "none", color: "inherit" }}>
             <EditIcon />
             Edit
           </Link>
         </MenuItem>
-        <MenuItem onClick={(handleClose, () => {handleDelete(id)})} disableRipple>
-          
+
+        <MenuItem
+          onClick={() => {
+            handleDelete(id);
+          }}
+          disableRipple
+        >
           <DeleteIcon />
           Delete
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleClose} disableRipple>
-          <Link to={`/rooms/${id}`} style={{ textDecoration: "none", color: "inherit"}}>
-          <MoreHorizIcon />
-          More
+          <Link to={`/rooms/${id}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <MoreHorizIcon />
+            More
           </Link>
         </MenuItem>
       </StyledMenu>

@@ -58,9 +58,9 @@ const Login = ({ setUser }: any) => {
           <img src={userlogo} alt="" />
           <H2>Login</H2>
           <Label>Email:</Label>
-          <Input type="email" name="email" id="email" placeholder="email" defaultValue="admin@example.com" required onChange={(e) => setEmail(e.target.value)} />
+          <Input type="email" name="email" id="email" placeholder="email" defaultValue={email} required onChange={(e) => setEmail(e.target.value)} />
           <Label>Password:</Label>
-          <Input type="password" name="password" id="password" placeholder="password" defaultValue="example" required onChange={(e) => setPassword(e.target.value)} />
+          <Input type="password" name="password" id="password" placeholder="password" defaultValue={password} required onChange={(e) => setPassword(e.target.value)} />
           <ButtonGreen type="submit" name="submit" id="submit">
             Login
           </ButtonGreen>

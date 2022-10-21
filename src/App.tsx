@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
-import { useState } from "react";
+import React, { ReactElement, SetStateAction, useState } from "react";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
@@ -13,22 +13,30 @@ import { useDispatch } from "react-redux";
 import { unfetchRooms } from "./features/rooms/roomsSlice";
 import RoomInfo from "./components/RoomInfo";
 import BarChart from "./components/styled/ReservationStats";
+import { AppDispatch } from "./app/store";
 
-function App() {
-  const dispatch = useDispatch();
-  const [user, setUser] = useState(null);
+type UserProps = {
+    email: string
+    password: string
+  }
+
+function App(): ReactElement {
+  const [user, setUser] = useState<null | UserProps>(null);
   // eslint-disable-next-line
-  const login = () => {
+  const login = (): ReactElement => {
     setUser({
       email: "admin@example.com",
       password: "example",
     });
-    localStorage.setItem("isLogin", true);
-    return <Navigate to="/"/>
+    localStorage.setItem("isLogin", "true");
+    return <Navigate to="/" />;
   };
-  const logout = () => {setUser(null); localStorage.removeItem("isLogin");
-  
-  dispatch(unfetchRooms());};
+  const dispatch: SetStateAction<AppDispatch> = useDispatch();
+  const logout = (): void => {
+    setUser(null);
+    localStorage.removeItem("isLogin");
+    dispatch(unfetchRooms());
+  };
 
   return (
     <Router basename="/sprint_04">
@@ -38,12 +46,11 @@ function App() {
       {user ? <button style={{ float: "right", padding: "5px"}} onClick={logout}>Logout</button> : <button style={{ float: "right", padding: "5px"}} onClick={login}>Login</button>}
       </div>  */}
 
-
       <ContextProvider>
         <Routes>
           <Route path="/d3" element={<BarChart />} />
-          <Route path="/login" element={user ? <Navigate to="/"/> : <Login setUser={setUser} />} />
-          <Route element={<PrivateRoute user={user} logout={logout} />}>
+          <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser} />} />
+          <Route element={<PrivateRoute user={user} />}>
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/" element={<Dashboard logout={logout} />} />
             <Route path="/rooms" element={<Rooms logout={logout} />} />

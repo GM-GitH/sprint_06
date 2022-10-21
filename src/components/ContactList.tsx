@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import styled from "styled-components";
 
 const Styled = styled.div`
@@ -49,25 +50,25 @@ const Styled = styled.div`
     }
   }
 `;
-export const UsersList = () => {
+export function ContactList(): ReactElement {
   return (
     <>
       <Styled>
         <div className="container">
           <div className="filters">
             <div className="left-filter">
-              <button className="left-filter__button active">All Users</button>
-              <button className="left-filter__button">Active Users</button>
-              <button className="left-filter__button">Inactive Users</button>
+              <button className="left-filter__button active">All Employee</button>
+              <button className="left-filter__button">Active Employee</button>
+              <button className="left-filter__button">Inactive Employee</button>
             </div>
             <div className="right-filter">
-              <button className="right-filter__button">+ New User</button>
+              <button className="right-filter__button">+ New Room</button>
               <button className="right-filter__button">
                 Newest <span className="right-filter__button__arrow">v</span>
               </button>
             </div>
           </div>
-          Users Table
+          Contact Table
         </div>
       </Styled>
     </>
