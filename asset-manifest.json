@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/sprint_06/static/js/main.62bbdc2d.js",
+    "main.js": "/sprint_06/static/js/main.cf891663.js",
     "static/media/presidential_suite.jpeg": "/sprint_06/static/media/presidential_suite.9e27745374f53aebfc3d.jpeg",
     "static/media/graph.png": "/sprint_06/static/media/graph.addabdaedf81e0e2ecc8.png",
     "static/media/calendar.png": "/sprint_06/static/media/calendar.c95335dfbc8e1afe2a51.png",
     "static/media/logo.png": "/sprint_06/static/media/logo.b66a1f8abe0838373163.png",
     "static/media/user.svg": "/sprint_06/static/media/user.a37abdff661249c1daf11ba903674705.svg",
     "index.html": "/sprint_06/index.html",
-    "main.62bbdc2d.js.map": "/sprint_06/static/js/main.62bbdc2d.js.map"
+    "main.cf891663.js.map": "/sprint_06/static/js/main.cf891663.js.map"
   },
   "entrypoints": [
-    "static/js/main.62bbdc2d.js"
+    "static/js/main.cf891663.js"
   ]
 }
